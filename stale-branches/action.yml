@@ -3,7 +3,7 @@ description: 'Clean up stale branches (branches that do not have any open merge 
 outputs:
   branches-list:
     description: "List of branches to be cleaned up"
-    value: ${{ steps.list-branches.outputs.random-number }}
+    value: ${{ steps.fetch-prs.outputs.branches }}
 runs:
   using: "composite"
   steps:

@@ -1,9 +1,16 @@
 #! /usr/bin/bash
 
 readarray -t branches < <(git branch --remote | grep -vE 'master|main')
+branches_to_delete=()
 for branch in $branches; do
 	branch_name=$(echo $branch | sed 's/origin\///')
 	echo "branch: $branch_name"
 	open_pr=$(gh pr list --head $branch_name --json number | jq length)
-	echo "open_pr=$open_pr" >>$GITHUB_OUTPUT
+	if [ $open_pr -eq 0]; then
+		echo "no open pull requests for $branch_name"
+	else
+		branches_to_delete+=$branch_name
+		echo "$branch_name added to delete list"
+	fi
 done
+echo branches=${branches_to_delete[@]} >>$GITHUB_OUTPUT
