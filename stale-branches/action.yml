@@ -11,5 +11,6 @@ runs:
       uses: actions/checkout@v7
     - name: Fetch open pull requests
       id: fetch-prs
-      uses: ./scripts/fetch-prs.sh
+      shell: bash
+      run: ./scripts/fetch-prs.sh
 
