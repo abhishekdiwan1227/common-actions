@@ -27,4 +27,4 @@ runs:
             echo "no open pull requests for $branch_name"
           fi
         done
-        echo branches=${branches_to_delete[@]} >> "$GITHUB_OUTPUT"
+        echo branches=${branches_to_delete[@]} >> $GITHUB_OUTPUT
