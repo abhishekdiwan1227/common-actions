@@ -9,8 +9,8 @@ for branch in ${branches[@]}; do
 	if [ $open_pr -eq 0 ]; then
 		branches_to_delete+=$branch_name
 		echo "$branch_name added to delete list"
+		echo $branch_name >> $GITHUB_STEP_SUMMARY
 	else
 		echo "no open pull requests for $branch_name"
 	fi
 done
-echo branches=${branches_to_delete[@]} >> "$GITHUB_OUTPUT"
