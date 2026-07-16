@@ -1,7 +1,7 @@
 #! /usr/bin/bash
 
 readarray -t branches < <(git fetch --all | git branch --remote | grep -vE 'master|main')
-echo "# deleted branches"
+echo "# deleted branches" >> $GITHUB_STEP_SUMMARY
 for branch in ${branches[@]}; do
 	branch_name=$(echo $branch | sed 's/origin\///')
 	echo "branch: $branch_name"
