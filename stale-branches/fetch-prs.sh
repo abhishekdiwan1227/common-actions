@@ -1,6 +1,6 @@
 #! /usr/bin/bash
 
-readarray -t branches < <(git branch --remote | grep -vE 'master|main')
+readarray -t branches < <(git fetch --all | git branch --remote | grep -vE 'master|main')
 branches_to_delete=()
 for branch in $branches; do
 	branch_name=$(echo $branch | sed 's/origin\///')
