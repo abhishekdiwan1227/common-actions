@@ -1,5 +1,9 @@
 name: 'Stale Branches'
 description: 'Clean up stale branches (branches that do not have any open merge requests)'
+inputs:
+  gh-token:  # id of input
+    description: 'GitHub token to access GH CLI'
+    required: true
 outputs:
   branches-list:
     description: "List of branches to be cleaned up"
@@ -19,9 +23,6 @@ runs:
     - name: Fetch open pull requests
       id: fetch-prs
       shell: bash
-      run: fetch-prs.sh > output.txt
-      
-    - name: Output debug
-      id: debug
-      run: cat output.txt
-      shell: bash
+      run: fetch-prs.sh 
+      env:
+        GH_TOKEN: ${{ inputs.gh-token }}
