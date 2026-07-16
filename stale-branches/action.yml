@@ -12,5 +12,5 @@ runs:
     - name: Fetch open pull requests
       id: fetch-prs
       shell: bash
-      run: stale-branches/scripts/fetch-prs.sh
+      run: fetch-prs.sh
 
