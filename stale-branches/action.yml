@@ -19,4 +19,9 @@ runs:
     - name: Fetch open pull requests
       id: fetch-prs
       shell: bash
-      run: fetch-prs.sh
+      run: fetch-prs.sh > output.txt
+      
+    - name: Output debug
+      id: debug
+      run: echo output.txt
+      shell: bash
