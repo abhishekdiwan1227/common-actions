@@ -23,5 +23,5 @@ runs:
       
     - name: Output debug
       id: debug
-      run: echo output.txt
+      run: cat output.txt
       shell: bash
