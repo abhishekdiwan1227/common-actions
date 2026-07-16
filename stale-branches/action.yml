@@ -1,0 +1,15 @@
+name: 'Stale Branches'
+description: 'Clean up stale branches (branches that do not have any open merge requests)'
+outputs:
+  branches-list:
+    description: "List of branches to be cleaned up"
+    value: ${{ steps.list-branches.outputs.random-number }}
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v7
+    - name: Fetch open pull requests
+      id: fetch-prs
+      uses: ./scripts/fetch-prs.sh
+
