@@ -6,7 +6,7 @@ inputs:
     required: true
 outputs:
   branches-list:
-    description: "List of branches to be cleaned up"
+    description: "List of branches that are cleaned up"
     value: ${{ steps.fetch-prs.outputs.branches }}
 runs:
   using: "composite"
