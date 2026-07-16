@@ -13,4 +13,4 @@ for branch in $branches; do
 		echo "$branch_name added to delete list"
 	fi
 done
-echo branches=${branches_to_delete[@]} >>$GITHUB_OUTPUT
+echo branches=${branches_to_delete[@]} >> "$GITHUB_OUTPUT"
