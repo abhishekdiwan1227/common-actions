@@ -22,10 +22,10 @@ runs:
       env:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
 
-    - name: Fetch open pull requests
+    - name: Delete branches
       id: fetch-prs
       shell: bash
-      run: fetch-prs.sh 
+      run: delete-stale-branches.sh 
       continue-on-error: false
       env:
         GH_TOKEN: ${{ inputs.gh-token }}
