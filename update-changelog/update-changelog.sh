@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+set -euo pipefail
+
 if [ $# -lt 1 ]; then
 	printf "no input increment flag captured\n"
 	exit 1
@@ -42,23 +44,26 @@ fi
 
 echo old version $captured_major_version.$captured_minor_version.$captured_patch_version
 
-last_commit_msg=$(git log -1 --format=%B)
+last_commit_msg=$(git log -1 --format=%B | awk 'NR==1')
 
 if [ $((major_version)) -ne $((captured_major_version)) ]; then
 	captured_patch_version=0
 	captured_minor_version=0
-	printf "new major"
 fi
 
 if [ $flag = "-p" ]; then
 	patch_version=$(($captured_patch_version + 1))
-	printf "%s" $patch_version
+	minor_version=$captured_minor_version
 elif [ $flag = "-m" ]; then
 	minor_version=$(($captured_minor_version + 1))
-	printf "%s" $minor_version
+else
+	printf "unrecognized flag: %s\n" $1
+	exit 1
 fi
 
 next_version=$major_version.$minor_version.$patch_version
+
+echo new version $next_version
 
 sed_script=$(
 	cat <<-EOF
@@ -67,4 +72,6 @@ sed_script=$(
 	EOF
 )
 
-sed -e "$sed_script" CHANGELOG >CHANGELOG.tmp && mv CHANGELOG.tmp CHANGELOG
+new_changelog=$(sed -e "$sed_script" CHANGELOG)
+echo -e "\n\n\033[33m$new_changelog\033[0m"
+echo "$new_changelog" >CHANGELOG.tmp && mv CHANGELOG.tmp CHANGELOG
